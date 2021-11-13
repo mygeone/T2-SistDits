@@ -1,5 +1,5 @@
 # Kafka Project: Sales and Reports
-## A simple stream data implementation using Kafka 
+## A simple project to manage sales for carts and generate a daily report of sales with email notification
 
 # Guide
 First, clone this respository:
