@@ -1,5 +1,5 @@
 # T2-SistDits
-## An simple stream data implementation using Kafka 
+## A simple stream data implementation using Kafka 
 
 # Guide
 First, clone this respository:
