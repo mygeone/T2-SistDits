@@ -1,4 +1,4 @@
-# T2-SistDits
+# Kafka Project: Sales and Reports
 ## A simple stream data implementation using Kafka 
 
 # Guide
