@@ -1,15 +1,16 @@
-from flask import Flask, request
-import smtplib, ssl
-from flask import jsonify
+from flask import Flask, request, jsonify
+#import smtplib, ssl
 from kafka import producer, KafkaConsumer
 import uuid
 import ast
 import os
-from mail import sendEmail2
+from mail import sendEmail3
 import json
 from confluent_kafka import Producer, Consumer
 import socket
 from topics import *
+
+
 
 conf = {'bootstrap.servers': "localhost:9092",
         'client.id': socket.gethostname()}
@@ -20,9 +21,9 @@ producer = Producer(conf)
 app = Flask(__name__)
 startTopcis()
 
-#ENDPOINTS
+# ENDPOINTS
 
-#endpoint: /newOrder que recibe un json con los datos de la nueva orden 
+## endpoint: /newOrder que recibe un json con los datos de la nueva orden y lo inserta a topic newOrders
 @app.route('/newOrder', methods=['POST'])
 def newOrder():
     data = request.data
@@ -31,7 +32,8 @@ def newOrder():
     producer.flush()
     return jsonify({'status': 'OK'})
 
-#endpoint: /getOrder que consume un json con los datos de una orden generada
+#endpoint: /getOrder que consume un json con los datos de una orden generada, calcula el resumen,
+# inserta en topic dailySummary y llama a la funcion sendEmail3
 @app.route('/dailySummary',methods=['GET'])
 def dailySummary():
     data = []
@@ -64,7 +66,7 @@ def dailySummary():
     producer.produce('dailySummary', user_encode_data)
 
     #send email
-    sendEmail2(totalVentas)
+    sendEmail3(totalVentas)
 
     return jsonify(totalVentas)
     

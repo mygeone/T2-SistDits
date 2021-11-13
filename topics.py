@@ -5,4 +5,4 @@ def startTopcis():
     new_topic   = confluent_kafka.admin.NewTopic('newOrders', 1, 1)
     new_topic2   = confluent_kafka.admin.NewTopic('dailySummary', 1, 1)
 
-    kafka_admin.create_topics([new_topic,new_topic2]) # CREATE (a list(), so you can create multiple).
+    kafka_admin.create_topics([new_topic,new_topic2]) 
