@@ -1,5 +1,5 @@
-# T2-SistDits
-## A simple stream data implementation using Kafka 
+# Kafka Project: Sales and Reports
+## A simple project to manage sales for carts and generate a daily report of sales with email notification
 
 # Guide
 First, clone this respository:
