@@ -7,6 +7,10 @@ First, clone this respository:
 git clone https://github.com/mygeone/T2-SistDits.git
 cd T2-SistDits
 ```
+Install dependencies:
+```
+pip install -r requirements.txt
+```
 Second, you need to run Kafka service, included in this repo.
 Execute following commands in separate terminal tabs
 ```
