@@ -2,7 +2,7 @@
 ## An simple stream data implementation using Kafka 
 
 # Guide
-First of all, clone this respository:
+First, clone this respository:
 ```
 git clone https://github.com/mygeone/T2-SistDits.git
 cd T2-SistDits
@@ -23,7 +23,7 @@ kafka/bin/kafka-server-start.sh config/server.properties
 
 Open endpoints require no Authentication.
 
-* [newOrder](login.md) : `POST /newOrder`
-* [dailySummary](login.md) : `GET /dailySummary`
+* [newOrder](newOrder.md) : `POST /newOrder`
+* [dailySummary](dailySummary.md) : `GET /dailySummary`
 
 Emails are sended to registered emal in POST request.
