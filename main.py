@@ -1,8 +1,11 @@
 from flask import Flask, request
+import smtplib, ssl
 from flask import jsonify
 from kafka import producer, KafkaConsumer
 import uuid
 import ast
+import os
+from mail import sendEmail2
 
 import json
 from confluent_kafka import Producer, Consumer
@@ -44,19 +47,25 @@ def dailySummary():
     consumer.close()
 
     for report in data:
-        print(report['vendor']['cart_id'])
         tempVentas = len(report['report'])
         if(report['vendor']['cart_id'] not in totalVentas):  
             totalVentas[report['vendor']['cart_id']] = {
                 'email' : report['vendor']['email'],
                 'totalVentas' : tempVentas
             }
+        else:
+            totalVentas[report['vendor']['cart_id']]['totalVentas'] += tempVentas
+
 
     user_encode_data = json.dumps(totalVentas, indent=2).encode('utf-8')
+    
+    #produce resumen ventas
     producer.produce('topic2', user_encode_data)
 
-    print(totalVentas)
-    return jsonify(data)
+    #send email
+    sendEmail2(totalVentas)
+
+    return jsonify(totalVentas)
     
 
 if __name__ == '__main__':
