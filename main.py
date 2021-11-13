@@ -6,10 +6,10 @@ import uuid
 import ast
 import os
 from mail import sendEmail2
-
 import json
 from confluent_kafka import Producer, Consumer
 import socket
+from topics import *
 
 conf = {'bootstrap.servers': "localhost:9092",
         'client.id': socket.gethostname()}
@@ -18,6 +18,7 @@ producer = Producer(conf)
 
 
 app = Flask(__name__)
+startTopcis()
 
 #ENDPOINTS
 
@@ -26,7 +27,7 @@ app = Flask(__name__)
 def newOrder():
     data = request.data
 
-    producer.produce('topic1', data)
+    producer.produce('newOrders', data)
     producer.flush()
     return jsonify({'status': 'OK'})
 
@@ -35,7 +36,7 @@ def newOrder():
 def dailySummary():
     data = []
     totalVentas = {}
-    consumer = KafkaConsumer('topic1', bootstrap_servers=['localhost:9092'],
+    consumer = KafkaConsumer('newOrders', bootstrap_servers=['localhost:9092'],
                          auto_offset_reset='earliest', enable_auto_commit=True,
                          auto_commit_interval_ms=1000, group_id=str(uuid.uuid4()),
                          request_timeout_ms=10001,
@@ -60,7 +61,7 @@ def dailySummary():
     user_encode_data = json.dumps(totalVentas, indent=2).encode('utf-8')
     
     #produce resumen ventas
-    producer.produce('topic2', user_encode_data)
+    producer.produce('dailySummary', user_encode_data)
 
     #send email
     sendEmail2(totalVentas)
