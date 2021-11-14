@@ -1,5 +1,6 @@
 # Kafka Project: Sales and Reports
 ## A simple project to manage sales for carts and generate a daily report of sales with email notification
+### Miguel Contreras - Lester Carrasco - Nicolas Poza
 
 # Guide
 First, clone this respository:
