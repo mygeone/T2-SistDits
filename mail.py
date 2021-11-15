@@ -6,7 +6,7 @@ from kafka import producer, KafkaConsumer
 
 
 port = 465  # For SSL
-password = 'wKF6hW!322628'
+password = 'test123reportfromsistdist!'
 
 context = ssl.create_default_context()
 
